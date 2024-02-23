@@ -1,5 +1,10 @@
 import 'package:pigeon/pigeon.dart';
 
+@ConfigurePigeon(PigeonOptions(
+  dartOut: 'lib/implementation/help_scout_sdk_api.g.dart',
+  kotlinOut: 'android/src/main/kotlin/com.help_scout_sdk/HelpScoutApi.g.kt',
+  swiftOut: 'ios/Classes/HelpScoutApi.g.swift',
+))
 enum HelpScoutApiBeaconRoute {
   home,
   ask,
@@ -101,12 +106,6 @@ class HelpScoutApiBeaconSettings {
   final HelpScoutApiMessagingSettings? messagingSettings;
 }
 
-@ConfigurePigeon(PigeonOptions(
-  dartOut: 'lib/implementation/help_scout_sdk_api.g.dart',
-  kotlinOut:
-      'android/app/src/main/kotlin/com.example.help_scout_sdk/HelpScoutApi.g.kt',
-  swiftOut: 'ios/Classes/HelpScoutApi.g.swift',
-))
 @HostApi()
 abstract class HelpScoutApi {
   void openBeacon(HelpScoutApiBeaconSettings beaconSettings);

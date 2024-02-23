@@ -62,3 +62,7 @@ android {
         }
     }
 }
+
+dependencies {
+    implementation "com.helpscout:beacon:5.0.2"
+}

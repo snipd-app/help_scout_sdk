@@ -1,4 +1,4 @@
-package com.example.help_scout_sdk
+package com.help_scout_sdk
 
 import androidx.annotation.NonNull
 

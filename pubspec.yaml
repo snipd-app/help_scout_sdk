@@ -22,7 +22,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.example.help_scout_sdk
+        package: com.help_scout_sdk
         pluginClass: HelpScoutSdkPlugin
       ios:
         pluginClass: HelpScoutSdkPlugin
