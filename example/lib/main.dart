@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:help_scout_sdk/help_scout_sdk.dart';
 
 void main() {
@@ -16,37 +13,42 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _helpScoutSdkPlugin = HelpScoutSdk();
+  final _helpScoutSdkPlugin = HelpScoutSdk.instance;
+  late final Beacon beacon;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    _helpScoutSdkPlugin.identify(
+      HelpScoutUser(
+        jobTitle: 'Support Hero',
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        attributes: {
+          'user-id': 'the_user_id',
+        },
+      ),
+    );
+
+    _helpScoutSdkPlugin.reset();
+
+    _helpScoutSdkPlugin.setSessionAttributes(
+      {'platform': 'iOS'},
+    );
+
+    beacon = _helpScoutSdkPlugin.createBeacon(
+      BeaconSettings(
+        'bcb7f307-fb2d-4944-8de2-358caea0c7b1',
+        color: Colors.red,
+        beaconTitle: 'The new title',
+        chatEnabled: false,
+      ),
+    );
+
+    beacon.prefillForm(BeaconFormPrefill(subject: 'This is a caca subject'));
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await _helpScoutSdkPlugin.getPlatformVersion() ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -55,7 +57,22 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  beacon.navigate(BeaconRoute.home);
+                },
+                child: Text('Open beacon'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  beacon.navigate(BeaconRoute.askMessage);
+                },
+                child: Text('Open ask message'),
+              ),
+            ],
+          ),
         ),
       ),
     );
