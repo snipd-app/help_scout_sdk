@@ -2,7 +2,7 @@ import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(PigeonOptions(
   dartOut: 'lib/implementation/help_scout_sdk_api.g.dart',
-  kotlinOut: 'android/src/main/kotlin/com.help_scout_sdk/HelpScoutApi.g.kt',
+  kotlinOut: 'android/src/main/kotlin/com/help_scout_sdk/HelpScoutApi.g.kt',
   swiftOut: 'ios/Classes/HelpScoutApi.g.swift',
 ))
 enum HelpScoutApiBeaconRoute {
@@ -110,16 +110,6 @@ class HelpScoutApiBeaconSettings {
 abstract class HelpScoutApi {
   void openBeacon(HelpScoutApiBeaconSettings beaconSettings);
 
-  void dismissBeacon();
-
-  void identify(HelpScoutApiUser user);
-
-  void setSessionAttributes(Map<String?, String?> attributes);
-
-  void prefillForm(String beaconId, HelpScoutApiFormPrefill prefillData);
-
-  void resetAllFormPrefills();
-
   void navigate(
       HelpScoutApiBeaconSettings settings, HelpScoutApiBeaconRoute route);
 
@@ -127,15 +117,23 @@ abstract class HelpScoutApi {
 
   void openArticle(HelpScoutApiBeaconSettings settings, String articleId);
 
-  void logout();
+  void dismissBeacon();
 
-  void reset();
+  void identify(String beaconId, HelpScoutApiUser user);
+
+  void setSessionAttributes(String beaconId, Map<String?, String?> attributes);
+
+  void prefillForm(String beaconId, HelpScoutApiFormPrefill prefillData);
+
+  void resetFormPrefill(String beaconId);
+
+  void logout(String beaconId);
+
+  void reset(String beaconId);
 }
 
 @FlutterApi()
 abstract class HelpScoutCallbackApi {
-  void onBeaconInitialOpen(String beaconId);
   void onBeaconOpen(String beaconId);
-  void onBeaconInitialClose(String beaconId);
   void onBeaconClose(String beaconId);
 }

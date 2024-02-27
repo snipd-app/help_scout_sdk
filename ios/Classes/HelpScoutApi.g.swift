@@ -315,16 +315,16 @@ class HelpScoutApiCodec: FlutterStandardMessageCodec {
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol HelpScoutApi {
   func openBeacon(beaconSettings: HelpScoutApiBeaconSettings) throws
-  func dismissBeacon() throws
-  func identify(user: HelpScoutApiUser) throws
-  func setSessionAttributes(attributes: [String?: String?]) throws
-  func prefillForm(beaconId: String, prefillData: HelpScoutApiFormPrefill) throws
-  func resetAllFormPrefills() throws
   func navigate(settings: HelpScoutApiBeaconSettings, route: HelpScoutApiBeaconRoute) throws
   func search(settings: HelpScoutApiBeaconSettings, query: String) throws
   func openArticle(settings: HelpScoutApiBeaconSettings, articleId: String) throws
-  func logout() throws
-  func reset() throws
+  func dismissBeacon() throws
+  func identify(beaconId: String, user: HelpScoutApiUser) throws
+  func setSessionAttributes(beaconId: String, attributes: [String?: String?]) throws
+  func prefillForm(beaconId: String, prefillData: HelpScoutApiFormPrefill) throws
+  func resetFormPrefill(beaconId: String) throws
+  func logout(beaconId: String) throws
+  func reset(beaconId: String) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -347,78 +347,6 @@ class HelpScoutApiSetup {
       }
     } else {
       openBeaconChannel.setMessageHandler(nil)
-    }
-    let dismissBeaconChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.dismissBeacon", binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      dismissBeaconChannel.setMessageHandler { _, reply in
-        do {
-          try api.dismissBeacon()
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      dismissBeaconChannel.setMessageHandler(nil)
-    }
-    let identifyChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.identify", binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      identifyChannel.setMessageHandler { message, reply in
-        let args = message as! [Any?]
-        let userArg = args[0] as! HelpScoutApiUser
-        do {
-          try api.identify(user: userArg)
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      identifyChannel.setMessageHandler(nil)
-    }
-    let setSessionAttributesChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.setSessionAttributes", binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      setSessionAttributesChannel.setMessageHandler { message, reply in
-        let args = message as! [Any?]
-        let attributesArg = args[0] as! [String?: String?]
-        do {
-          try api.setSessionAttributes(attributes: attributesArg)
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      setSessionAttributesChannel.setMessageHandler(nil)
-    }
-    let prefillFormChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.prefillForm", binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      prefillFormChannel.setMessageHandler { message, reply in
-        let args = message as! [Any?]
-        let beaconIdArg = args[0] as! String
-        let prefillDataArg = args[1] as! HelpScoutApiFormPrefill
-        do {
-          try api.prefillForm(beaconId: beaconIdArg, prefillData: prefillDataArg)
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      prefillFormChannel.setMessageHandler(nil)
-    }
-    let resetAllFormPrefillsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.resetAllFormPrefills", binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      resetAllFormPrefillsChannel.setMessageHandler { _, reply in
-        do {
-          try api.resetAllFormPrefills()
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      resetAllFormPrefillsChannel.setMessageHandler(nil)
     }
     let navigateChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.navigate", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
@@ -468,11 +396,89 @@ class HelpScoutApiSetup {
     } else {
       openArticleChannel.setMessageHandler(nil)
     }
+    let dismissBeaconChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.dismissBeacon", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      dismissBeaconChannel.setMessageHandler { _, reply in
+        do {
+          try api.dismissBeacon()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      dismissBeaconChannel.setMessageHandler(nil)
+    }
+    let identifyChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.identify", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      identifyChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let beaconIdArg = args[0] as! String
+        let userArg = args[1] as! HelpScoutApiUser
+        do {
+          try api.identify(beaconId: beaconIdArg, user: userArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      identifyChannel.setMessageHandler(nil)
+    }
+    let setSessionAttributesChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.setSessionAttributes", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      setSessionAttributesChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let beaconIdArg = args[0] as! String
+        let attributesArg = args[1] as! [String?: String?]
+        do {
+          try api.setSessionAttributes(beaconId: beaconIdArg, attributes: attributesArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      setSessionAttributesChannel.setMessageHandler(nil)
+    }
+    let prefillFormChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.prefillForm", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      prefillFormChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let beaconIdArg = args[0] as! String
+        let prefillDataArg = args[1] as! HelpScoutApiFormPrefill
+        do {
+          try api.prefillForm(beaconId: beaconIdArg, prefillData: prefillDataArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      prefillFormChannel.setMessageHandler(nil)
+    }
+    let resetFormPrefillChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.resetFormPrefill", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      resetFormPrefillChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let beaconIdArg = args[0] as! String
+        do {
+          try api.resetFormPrefill(beaconId: beaconIdArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      resetFormPrefillChannel.setMessageHandler(nil)
+    }
     let logoutChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.logout", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
-      logoutChannel.setMessageHandler { _, reply in
+      logoutChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let beaconIdArg = args[0] as! String
         do {
-          try api.logout()
+          try api.logout(beaconId: beaconIdArg)
           reply(wrapResult(nil))
         } catch {
           reply(wrapError(error))
@@ -483,9 +489,11 @@ class HelpScoutApiSetup {
     }
     let resetChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.reset", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
-      resetChannel.setMessageHandler { _, reply in
+      resetChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let beaconIdArg = args[0] as! String
         do {
-          try api.reset()
+          try api.reset(beaconId: beaconIdArg)
           reply(wrapResult(nil))
         } catch {
           reply(wrapError(error))
@@ -498,9 +506,7 @@ class HelpScoutApiSetup {
 }
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol HelpScoutCallbackApiProtocol {
-  func onBeaconInitialOpen(beaconId beaconIdArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void)
   func onBeaconOpen(beaconId beaconIdArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void)
-  func onBeaconInitialClose(beaconId beaconIdArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void)
   func onBeaconClose(beaconId beaconIdArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void)
 }
 class HelpScoutCallbackApi: HelpScoutCallbackApiProtocol {
@@ -508,44 +514,8 @@ class HelpScoutCallbackApi: HelpScoutCallbackApiProtocol {
   init(binaryMessenger: FlutterBinaryMessenger) {
     self.binaryMessenger = binaryMessenger
   }
-  func onBeaconInitialOpen(beaconId beaconIdArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconInitialOpen"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
-    channel.sendMessage([beaconIdArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(Void()))
-      }
-    }
-  }
   func onBeaconOpen(beaconId beaconIdArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void) {
     let channelName: String = "dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconOpen"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
-    channel.sendMessage([beaconIdArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(Void()))
-      }
-    }
-  }
-  func onBeaconInitialClose(beaconId beaconIdArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconInitialClose"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
     channel.sendMessage([beaconIdArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {

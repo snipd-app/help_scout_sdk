@@ -348,116 +348,6 @@ class HelpScoutApi {
     }
   }
 
-  Future<void> dismissBeacon() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.dismissBeacon';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-      __pigeon_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: __pigeon_binaryMessenger,
-    );
-    final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(null) as List<Object?>?;
-    if (__pigeon_replyList == null) {
-      throw _createConnectionError(__pigeon_channelName);
-    } else if (__pigeon_replyList.length > 1) {
-      throw PlatformException(
-        code: __pigeon_replyList[0]! as String,
-        message: __pigeon_replyList[1] as String?,
-        details: __pigeon_replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
-
-  Future<void> identify(HelpScoutApiUser user) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.identify';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-      __pigeon_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: __pigeon_binaryMessenger,
-    );
-    final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(<Object?>[user]) as List<Object?>?;
-    if (__pigeon_replyList == null) {
-      throw _createConnectionError(__pigeon_channelName);
-    } else if (__pigeon_replyList.length > 1) {
-      throw PlatformException(
-        code: __pigeon_replyList[0]! as String,
-        message: __pigeon_replyList[1] as String?,
-        details: __pigeon_replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
-
-  Future<void> setSessionAttributes(Map<String?, String?> attributes) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.setSessionAttributes';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-      __pigeon_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: __pigeon_binaryMessenger,
-    );
-    final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(<Object?>[attributes]) as List<Object?>?;
-    if (__pigeon_replyList == null) {
-      throw _createConnectionError(__pigeon_channelName);
-    } else if (__pigeon_replyList.length > 1) {
-      throw PlatformException(
-        code: __pigeon_replyList[0]! as String,
-        message: __pigeon_replyList[1] as String?,
-        details: __pigeon_replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
-
-  Future<void> prefillForm(String beaconId, HelpScoutApiFormPrefill prefillData) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.prefillForm';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-      __pigeon_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: __pigeon_binaryMessenger,
-    );
-    final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(<Object?>[beaconId, prefillData]) as List<Object?>?;
-    if (__pigeon_replyList == null) {
-      throw _createConnectionError(__pigeon_channelName);
-    } else if (__pigeon_replyList.length > 1) {
-      throw PlatformException(
-        code: __pigeon_replyList[0]! as String,
-        message: __pigeon_replyList[1] as String?,
-        details: __pigeon_replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
-
-  Future<void> resetAllFormPrefills() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.resetAllFormPrefills';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-      __pigeon_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: __pigeon_binaryMessenger,
-    );
-    final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(null) as List<Object?>?;
-    if (__pigeon_replyList == null) {
-      throw _createConnectionError(__pigeon_channelName);
-    } else if (__pigeon_replyList.length > 1) {
-      throw PlatformException(
-        code: __pigeon_replyList[0]! as String,
-        message: __pigeon_replyList[1] as String?,
-        details: __pigeon_replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
-
   Future<void> navigate(HelpScoutApiBeaconSettings settings, HelpScoutApiBeaconRoute route) async {
     const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.navigate';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
@@ -524,8 +414,8 @@ class HelpScoutApi {
     }
   }
 
-  Future<void> logout() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.logout';
+  Future<void> dismissBeacon() async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.dismissBeacon';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -546,7 +436,117 @@ class HelpScoutApi {
     }
   }
 
-  Future<void> reset() async {
+  Future<void> identify(String beaconId, HelpScoutApiUser user) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.identify';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[beaconId, user]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  Future<void> setSessionAttributes(String beaconId, Map<String?, String?> attributes) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.setSessionAttributes';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[beaconId, attributes]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  Future<void> prefillForm(String beaconId, HelpScoutApiFormPrefill prefillData) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.prefillForm';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[beaconId, prefillData]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  Future<void> resetFormPrefill(String beaconId) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.resetFormPrefill';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[beaconId]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  Future<void> logout(String beaconId) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.logout';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[beaconId]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  Future<void> reset(String beaconId) async {
     const String __pigeon_channelName = 'dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.reset';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -554,7 +554,7 @@ class HelpScoutApi {
       binaryMessenger: __pigeon_binaryMessenger,
     );
     final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(null) as List<Object?>?;
+        await __pigeon_channel.send(<Object?>[beaconId]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {
@@ -572,40 +572,11 @@ class HelpScoutApi {
 abstract class HelpScoutCallbackApi {
   static const MessageCodec<Object?> pigeonChannelCodec = StandardMessageCodec();
 
-  void onBeaconInitialOpen(String beaconId);
-
   void onBeaconOpen(String beaconId);
-
-  void onBeaconInitialClose(String beaconId);
 
   void onBeaconClose(String beaconId);
 
   static void setup(HelpScoutCallbackApi? api, {BinaryMessenger? binaryMessenger}) {
-    {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconInitialOpen', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
-      if (api == null) {
-        __pigeon_channel.setMessageHandler(null);
-      } else {
-        __pigeon_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-          'Argument for dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconInitialOpen was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final String? arg_beaconId = (args[0] as String?);
-          assert(arg_beaconId != null,
-              'Argument for dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconInitialOpen was null, expected non-null String.');
-          try {
-            api.onBeaconInitialOpen(arg_beaconId!);
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
-      }
-    }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconOpen', pigeonChannelCodec,
@@ -622,31 +593,6 @@ abstract class HelpScoutCallbackApi {
               'Argument for dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconOpen was null, expected non-null String.');
           try {
             api.onBeaconOpen(arg_beaconId!);
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconInitialClose', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
-      if (api == null) {
-        __pigeon_channel.setMessageHandler(null);
-      } else {
-        __pigeon_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-          'Argument for dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconInitialClose was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final String? arg_beaconId = (args[0] as String?);
-          assert(arg_beaconId != null,
-              'Argument for dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconInitialClose was null, expected non-null String.');
-          try {
-            api.onBeaconInitialClose(arg_beaconId!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

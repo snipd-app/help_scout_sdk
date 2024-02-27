@@ -19,7 +19,15 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _helpScoutSdkPlugin.identify(
+    beacon = _helpScoutSdkPlugin.createBeacon(
+      BeaconSettings(
+        'bcb7f307-fb2d-4944-8de2-358caea0c7b1',
+        color: Colors.red,
+        beaconTitle: 'The new title',
+      ),
+    );
+
+    beacon.identify(
       HelpScoutUser(
         jobTitle: 'Support Hero',
         name: 'John Doe',
@@ -30,22 +38,11 @@ class _MyAppState extends State<MyApp> {
       ),
     );
 
-    _helpScoutSdkPlugin.reset();
-
-    _helpScoutSdkPlugin.setSessionAttributes(
+    beacon.setSessionAttributes(
       {'platform': 'iOS'},
     );
 
-    beacon = _helpScoutSdkPlugin.createBeacon(
-      BeaconSettings(
-        'bcb7f307-fb2d-4944-8de2-358caea0c7b1',
-        color: Colors.red,
-        beaconTitle: 'The new title',
-        chatEnabled: false,
-      ),
-    );
-
-    beacon.prefillForm(BeaconFormPrefill(subject: 'This is a caca subject'));
+    // beacon.prefillForm(BeaconFormPrefill(subject: 'This is a caca subject'));
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -67,7 +64,7 @@ class _MyAppState extends State<MyApp> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  beacon.navigate(BeaconRoute.askMessage);
+                  beacon.navigate(BeaconRoute.ask);
                 },
                 child: Text('Open ask message'),
               ),

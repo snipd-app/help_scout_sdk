@@ -17,44 +17,8 @@ final class HelpScoutSdkImpl implements HelpScoutSdk, HelpScoutCallbackApi {
   }
 
   @override
-  Future<void> identify(HelpScoutUser user) async {
-    await _nativeApi.identify(HelpScoutApiUser(
-      name: user.name,
-      avatar: user.avatar?.toString(),
-      company: user.company,
-      email: user.email,
-      jobTitle: user.jobTitle,
-      attributes: user.attributes,
-    ));
-  }
-
-  @override
-  Future<void> logout() async {
-    await _nativeApi.logout();
-  }
-
-  @override
-  Future<void> reset() async {
-    await _nativeApi.reset();
-  }
-
-  @override
   void onBeaconClose(String beaconId) {
     for (final listener in _onBeaconCloseListeners[beaconId] ?? []) {
-      listener();
-    }
-  }
-
-  @override
-  void onBeaconInitialClose(String beaconId) {
-    for (final listener in _onBeaconInitialCloseListeners[beaconId] ?? []) {
-      listener();
-    }
-  }
-
-  @override
-  void onBeaconInitialOpen(String beaconId) {
-    for (final listener in _onBeaconInitialOpenListeners[beaconId] ?? []) {
       listener();
     }
   }
@@ -67,9 +31,7 @@ final class HelpScoutSdkImpl implements HelpScoutSdk, HelpScoutCallbackApi {
   }
 
   final Map<String, List<VoidCallback>> _onBeaconCloseListeners = {};
-  final Map<String, List<VoidCallback>> _onBeaconInitialCloseListeners = {};
   final Map<String, List<VoidCallback>> _onBeaconOpenListeners = {};
-  final Map<String, List<VoidCallback>> _onBeaconInitialOpenListeners = {};
 
   void addOnBeaconCloseListener(String beaconId, VoidCallback listener) {
     _onBeaconCloseListeners[beaconId] ??= [];
@@ -89,33 +51,6 @@ final class HelpScoutSdkImpl implements HelpScoutSdk, HelpScoutCallbackApi {
   void removeOnBeaconOpenListener(String beaconId, VoidCallback listener) {
     _onBeaconOpenListeners[beaconId] ??= [];
     _onBeaconOpenListeners[beaconId]!.remove(listener);
-  }
-
-  void addOnBeaconInitialOpenListener(String beaconId, VoidCallback listener) {
-    _onBeaconInitialOpenListeners[beaconId] ??= [];
-    _onBeaconInitialOpenListeners[beaconId]!.add(listener);
-  }
-
-  void removeOnBeaconInitialOpenListener(
-      String beaconId, VoidCallback listener) {
-    _onBeaconInitialOpenListeners[beaconId] ??= [];
-    _onBeaconInitialOpenListeners[beaconId]!.remove(listener);
-  }
-
-  void addOnBeaconInitialCloseListener(String beaconId, VoidCallback listener) {
-    _onBeaconInitialCloseListeners[beaconId] ??= [];
-    _onBeaconInitialCloseListeners[beaconId]!.add(listener);
-  }
-
-  void removeOnBeaconInitialCloseListener(
-      String beaconId, VoidCallback listener) {
-    _onBeaconInitialCloseListeners[beaconId] ??= [];
-    _onBeaconInitialCloseListeners[beaconId]!.remove(listener);
-  }
-
-  @override
-  Future<void> setSessionAttributes(Map<String, String> attributes) async {
-    await _nativeApi.setSessionAttributes(attributes);
   }
 }
 
@@ -143,6 +78,35 @@ final class _BeaconImpl implements Beacon {
   @override
   Future<void> dismiss() async {
     await _nativeApi.dismissBeacon();
+  }
+
+  @override
+  Future<void> identify(HelpScoutUser user) async {
+    await _nativeApi.identify(
+        id,
+        HelpScoutApiUser(
+          name: user.name,
+          avatar: user.avatar?.toString(),
+          company: user.company,
+          email: user.email,
+          jobTitle: user.jobTitle,
+          attributes: user.attributes,
+        ));
+  }
+
+  @override
+  Future<void> logout() async {
+    await _nativeApi.logout(id);
+  }
+
+  @override
+  Future<void> reset() async {
+    await _nativeApi.reset(id);
+  }
+
+  @override
+  Future<void> setSessionAttributes(Map<String, String> attributes) async {
+    await _nativeApi.setSessionAttributes(id, attributes);
   }
 
   @override
@@ -185,6 +149,11 @@ final class _BeaconImpl implements Beacon {
   }
 
   @override
+  Future<void> clearForm() async {
+    await _nativeApi.resetFormPrefill(id);
+  }
+
+  @override
   void addOnBeaconCloseListener(VoidCallback listener) =>
       _sdk.addOnBeaconCloseListener(id, listener);
   @override
@@ -196,16 +165,4 @@ final class _BeaconImpl implements Beacon {
   @override
   void removeOnBeaconOpenListener(VoidCallback listener) =>
       _sdk.removeOnBeaconOpenListener(id, listener);
-  @override
-  void addOnBeaconInitialOpenListener(VoidCallback listener) =>
-      _sdk.addOnBeaconInitialOpenListener(id, listener);
-  @override
-  void removeOnBeaconInitialOpenListener(VoidCallback listener) =>
-      _sdk.removeOnBeaconInitialOpenListener(id, listener);
-  @override
-  void addOnBeaconInitialCloseListener(VoidCallback listener) =>
-      _sdk.addOnBeaconInitialCloseListener(id, listener);
-  @override
-  void removeOnBeaconInitialCloseListener(VoidCallback listener) =>
-      _sdk.removeOnBeaconInitialCloseListener(id, listener);
 }

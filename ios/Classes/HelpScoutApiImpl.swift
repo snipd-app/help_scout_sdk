@@ -12,6 +12,7 @@ import Flutter
 extension FlutterError: Error {}
 
 class HelpScoutApiImpl : NSObject, HelpScoutApi  {
+ 
   init(callbackApi: HelpScoutCallbackApi) {
     self.callbackApi = callbackApi
   }
@@ -30,7 +31,7 @@ class HelpScoutApiImpl : NSObject, HelpScoutApi  {
     HSBeacon.dismiss()
   }
   
-  func reset() throws {
+  func reset(beaconId: String) throws {
     HSBeacon.reset()
   }
   
@@ -67,12 +68,12 @@ class HelpScoutApiImpl : NSObject, HelpScoutApi  {
     formPrefills[beaconId] = prefillData
   }
   
-  func resetAllFormPrefills() throws {
+  func resetFormPrefill(beaconId: String) throws {
     HSBeacon.reset()
     formPrefills = [:]
   }
   
-  func identify(user: HelpScoutApiUser) throws {
+  func identify(beaconId: String, user: HelpScoutApiUser) throws {
     let beaconUser = HSBeaconUser()
     beaconUser.email = user.email
     beaconUser.name = user.name
@@ -92,7 +93,7 @@ class HelpScoutApiImpl : NSObject, HelpScoutApi  {
     HSBeacon.identify(beaconUser)
   }
   
-  func setSessionAttributes(attributes: [String? : String?]) throws {
+  func setSessionAttributes(beaconId: String, attributes: [String? : String?]) throws {
     for (key, value) in attributes {
       if let key = key, let value = value {
         userSessionAttributes[key] = value;
@@ -100,9 +101,7 @@ class HelpScoutApiImpl : NSObject, HelpScoutApi  {
     }
   }
   
-  
-  
-  func logout() throws {
+  func logout(beaconId: String) throws {
     HSBeacon.logout()
   }
   
@@ -212,23 +211,16 @@ extension HelpScoutApiImpl : HSBeaconDelegate {
     callbackApi.onBeaconOpen(beaconId: beaconSettings.beaconId, completion: {_ in })
   }
   
-  func onBeaconInitialOpen(_ beaconSettings: HSBeaconSettings) {
-      callbackApi.onBeaconInitialOpen(beaconId: beaconSettings.beaconId, completion: {_ in })
-  }
   
   func onBeaconClose(_ beaconSettings: HSBeaconSettings) {
     callbackApi.onBeaconClose(beaconId: beaconSettings.beaconId, completion: {_ in })
   }
-  
-  func onBeaconInitialClose(_ beaconSettings: HSBeaconSettings) {
-    callbackApi.onBeaconInitialClose(beaconId: beaconSettings.beaconId, completion: {_ in })
-  }
+
 }
 
 extension UIColor {
   public convenience init?(hex: String) {
     let r, g, b, a: CGFloat
-    print("Converting color \(hex)")
     if hex.hasPrefix("#") {
       let start = hex.index(hex.startIndex, offsetBy: 1)
       let hexColor = String(hex[start...])

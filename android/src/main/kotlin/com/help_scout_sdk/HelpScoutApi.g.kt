@@ -308,16 +308,16 @@ private object HelpScoutApiCodec : StandardMessageCodec() {
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface HelpScoutApi {
   fun openBeacon(beaconSettings: HelpScoutApiBeaconSettings)
-  fun dismissBeacon()
-  fun identify(user: HelpScoutApiUser)
-  fun setSessionAttributes(attributes: Map<String?, String?>)
-  fun prefillForm(beaconId: String, prefillData: HelpScoutApiFormPrefill)
-  fun resetAllFormPrefills()
   fun navigate(settings: HelpScoutApiBeaconSettings, route: HelpScoutApiBeaconRoute)
   fun search(settings: HelpScoutApiBeaconSettings, query: String)
   fun openArticle(settings: HelpScoutApiBeaconSettings, articleId: String)
-  fun logout()
-  fun reset()
+  fun dismissBeacon()
+  fun identify(beaconId: String, user: HelpScoutApiUser)
+  fun setSessionAttributes(beaconId: String, attributes: Map<String?, String?>)
+  fun prefillForm(beaconId: String, prefillData: HelpScoutApiFormPrefill)
+  fun resetFormPrefill(beaconId: String)
+  fun logout(beaconId: String)
+  fun reset(beaconId: String)
 
   companion object {
     /** The codec used by HelpScoutApi. */
@@ -336,98 +336,6 @@ interface HelpScoutApi {
             var wrapped: List<Any?>
             try {
               api.openBeacon(beaconSettingsArg)
-              wrapped = listOf<Any?>(null)
-            } catch (exception: Throwable) {
-              wrapped = wrapError(exception)
-            }
-            reply.reply(wrapped)
-          }
-        } else {
-          channel.setMessageHandler(null)
-        }
-      }
-      run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.dismissBeacon", codec)
-        if (api != null) {
-          channel.setMessageHandler { _, reply ->
-            var wrapped: List<Any?>
-            try {
-              api.dismissBeacon()
-              wrapped = listOf<Any?>(null)
-            } catch (exception: Throwable) {
-              wrapped = wrapError(exception)
-            }
-            reply.reply(wrapped)
-          }
-        } else {
-          channel.setMessageHandler(null)
-        }
-      }
-      run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.identify", codec)
-        if (api != null) {
-          channel.setMessageHandler { message, reply ->
-            val args = message as List<Any?>
-            val userArg = args[0] as HelpScoutApiUser
-            var wrapped: List<Any?>
-            try {
-              api.identify(userArg)
-              wrapped = listOf<Any?>(null)
-            } catch (exception: Throwable) {
-              wrapped = wrapError(exception)
-            }
-            reply.reply(wrapped)
-          }
-        } else {
-          channel.setMessageHandler(null)
-        }
-      }
-      run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.setSessionAttributes", codec)
-        if (api != null) {
-          channel.setMessageHandler { message, reply ->
-            val args = message as List<Any?>
-            val attributesArg = args[0] as Map<String?, String?>
-            var wrapped: List<Any?>
-            try {
-              api.setSessionAttributes(attributesArg)
-              wrapped = listOf<Any?>(null)
-            } catch (exception: Throwable) {
-              wrapped = wrapError(exception)
-            }
-            reply.reply(wrapped)
-          }
-        } else {
-          channel.setMessageHandler(null)
-        }
-      }
-      run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.prefillForm", codec)
-        if (api != null) {
-          channel.setMessageHandler { message, reply ->
-            val args = message as List<Any?>
-            val beaconIdArg = args[0] as String
-            val prefillDataArg = args[1] as HelpScoutApiFormPrefill
-            var wrapped: List<Any?>
-            try {
-              api.prefillForm(beaconIdArg, prefillDataArg)
-              wrapped = listOf<Any?>(null)
-            } catch (exception: Throwable) {
-              wrapped = wrapError(exception)
-            }
-            reply.reply(wrapped)
-          }
-        } else {
-          channel.setMessageHandler(null)
-        }
-      }
-      run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.resetAllFormPrefills", codec)
-        if (api != null) {
-          channel.setMessageHandler { _, reply ->
-            var wrapped: List<Any?>
-            try {
-              api.resetAllFormPrefills()
               wrapped = listOf<Any?>(null)
             } catch (exception: Throwable) {
               wrapped = wrapError(exception)
@@ -499,12 +407,110 @@ interface HelpScoutApi {
         }
       }
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.logout", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.dismissBeacon", codec)
         if (api != null) {
           channel.setMessageHandler { _, reply ->
             var wrapped: List<Any?>
             try {
-              api.logout()
+              api.dismissBeacon()
+              wrapped = listOf<Any?>(null)
+            } catch (exception: Throwable) {
+              wrapped = wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.identify", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val beaconIdArg = args[0] as String
+            val userArg = args[1] as HelpScoutApiUser
+            var wrapped: List<Any?>
+            try {
+              api.identify(beaconIdArg, userArg)
+              wrapped = listOf<Any?>(null)
+            } catch (exception: Throwable) {
+              wrapped = wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.setSessionAttributes", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val beaconIdArg = args[0] as String
+            val attributesArg = args[1] as Map<String?, String?>
+            var wrapped: List<Any?>
+            try {
+              api.setSessionAttributes(beaconIdArg, attributesArg)
+              wrapped = listOf<Any?>(null)
+            } catch (exception: Throwable) {
+              wrapped = wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.prefillForm", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val beaconIdArg = args[0] as String
+            val prefillDataArg = args[1] as HelpScoutApiFormPrefill
+            var wrapped: List<Any?>
+            try {
+              api.prefillForm(beaconIdArg, prefillDataArg)
+              wrapped = listOf<Any?>(null)
+            } catch (exception: Throwable) {
+              wrapped = wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.resetFormPrefill", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val beaconIdArg = args[0] as String
+            var wrapped: List<Any?>
+            try {
+              api.resetFormPrefill(beaconIdArg)
+              wrapped = listOf<Any?>(null)
+            } catch (exception: Throwable) {
+              wrapped = wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.logout", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val beaconIdArg = args[0] as String
+            var wrapped: List<Any?>
+            try {
+              api.logout(beaconIdArg)
               wrapped = listOf<Any?>(null)
             } catch (exception: Throwable) {
               wrapped = wrapError(exception)
@@ -518,10 +524,12 @@ interface HelpScoutApi {
       run {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.help_scout_sdk.HelpScoutApi.reset", codec)
         if (api != null) {
-          channel.setMessageHandler { _, reply ->
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val beaconIdArg = args[0] as String
             var wrapped: List<Any?>
             try {
-              api.reset()
+              api.reset(beaconIdArg)
               wrapped = listOf<Any?>(null)
             } catch (exception: Throwable) {
               wrapped = wrapError(exception)
@@ -544,41 +552,9 @@ class HelpScoutCallbackApi(private val binaryMessenger: BinaryMessenger) {
       StandardMessageCodec()
     }
   }
-  fun onBeaconInitialOpen(beaconIdArg: String, callback: (Result<Unit>) -> Unit)
-{
-    val channelName = "dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconInitialOpen"
-    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
-    channel.send(listOf(beaconIdArg)) {
-      if (it is List<*>) {
-        if (it.size > 1) {
-          callback(Result.failure(FlutterError(it[0] as String, it[1] as String, it[2] as String?)))
-        } else {
-          callback(Result.success(Unit))
-        }
-      } else {
-        callback(Result.failure(createConnectionError(channelName)))
-      } 
-    }
-  }
   fun onBeaconOpen(beaconIdArg: String, callback: (Result<Unit>) -> Unit)
 {
     val channelName = "dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconOpen"
-    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
-    channel.send(listOf(beaconIdArg)) {
-      if (it is List<*>) {
-        if (it.size > 1) {
-          callback(Result.failure(FlutterError(it[0] as String, it[1] as String, it[2] as String?)))
-        } else {
-          callback(Result.success(Unit))
-        }
-      } else {
-        callback(Result.failure(createConnectionError(channelName)))
-      } 
-    }
-  }
-  fun onBeaconInitialClose(beaconIdArg: String, callback: (Result<Unit>) -> Unit)
-{
-    val channelName = "dev.flutter.pigeon.help_scout_sdk.HelpScoutCallbackApi.onBeaconInitialClose"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(listOf(beaconIdArg)) {
       if (it is List<*>) {
