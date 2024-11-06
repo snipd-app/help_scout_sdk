@@ -84,7 +84,6 @@ class HelpScoutApiBeaconSettings {
     this.enablePreviousMessages,
     this.docsEnabled,
     this.chatEnabled,
-    this.beaconTitle,
     this.useNavigationBarAppearance,
     this.color,
     this.tintColorOverride,
@@ -98,7 +97,6 @@ class HelpScoutApiBeaconSettings {
   final bool? enablePreviousMessages;
   final bool? docsEnabled;
   final bool? chatEnabled;
-  final String? beaconTitle;
   final bool? useNavigationBarAppearance;
   final HelpScoutApiColor? color;
   final HelpScoutApiColor? tintColorOverride;

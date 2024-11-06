@@ -18,7 +18,7 @@ A new Flutter plugin project.
   s.platform = :ios, '12.0'
 
   # HelpScout Beacon dependency
-  s.dependency 'Beacon', '3.0.0'
+  s.dependency 'Beacon', '3.0.1'
   s.preserve_paths = 'Beacon.framework'
     s.xcconfig = { 'OTHER_LDFLAGS' => '-framework Beacon' }
     s.vendored_frameworks = 'Beacon.framework'

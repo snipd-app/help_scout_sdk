@@ -21,26 +21,28 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     beacon = _helpScoutSdkPlugin.createBeacon(
       BeaconSettings(
-        'bcb7f307-fb2d-4944-8de2-358caea0c7b1',
-        color: Colors.red,
-        beaconTitle: 'The new title',
+        'beacon_id',
+        chatEnabled: true,
+        messagingEnabled: true,
+        docsEnabled: false,
+        enablePreviousMessages: true,
       ),
     );
 
-    beacon.identify(
-      HelpScoutUser(
-        jobTitle: 'Support Hero',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        attributes: {
-          'user-id': 'the_user_id',
-        },
-      ),
-    );
-
-    beacon.setSessionAttributes(
-      {'platform': 'iOS'},
-    );
+    // beacon.identify(
+    //   HelpScoutUser(
+    //     jobTitle: 'Support Hero',
+    //     name: 'John Doe',
+    //     email: 'john.doe@example.com',
+    //     attributes: {
+    //       'user-id': 'the_user_id',
+    //     },
+    //   ),
+    // );
+    //
+    // beacon.setSessionAttributes(
+    //   {'platform': 'iOS'},
+    // );
 
     // beacon.prefillForm(BeaconFormPrefill(subject: 'This is a caca subject'));
   }
@@ -58,13 +60,13 @@ class _MyAppState extends State<MyApp> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  beacon.navigate(BeaconRoute.home);
+                  beacon.open();
                 },
                 child: Text('Open beacon'),
               ),
               ElevatedButton(
                 onPressed: () {
-                  beacon.navigate(BeaconRoute.ask);
+                  beacon.navigate(BeaconRoute.askChat);
                 },
                 child: Text('Open ask message'),
               ),

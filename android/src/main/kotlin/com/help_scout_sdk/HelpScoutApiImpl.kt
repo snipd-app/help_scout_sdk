@@ -21,8 +21,10 @@ import com.helpscout.beacon.ui.BeaconOnClosedListener
 import com.helpscout.beacon.ui.BeaconOnOpenedListener
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 
-class HelpScoutApiImpl(private val applicationContext: Context, private val callbackApi: HelpScoutCallbackApi) :
-
+class HelpScoutApiImpl(
+    private val applicationContext: Context,
+    private val callbackApi: HelpScoutCallbackApi,
+) :
 
     HelpScoutApi {
     private val eventLifecycleHandler = BeaconEventLifecycleHandler(
@@ -43,7 +45,7 @@ class HelpScoutApiImpl(private val applicationContext: Context, private val call
     )
 
     private var application: Application? = null
-    private var currentBeaconId: String? =  null
+    private var currentBeaconId: String? = null
 
     fun onAttachedToActivity(binding: ActivityPluginBinding) {
         application = binding.activity.application
@@ -166,13 +168,13 @@ class HelpScoutApiImpl(private val applicationContext: Context, private val call
                     HelpScoutApiBeaconFocusMode.ASK_FIRST -> FocusMode.ASK_FIRST
                     HelpScoutApiBeaconFocusMode.SELF_SERVICE -> FocusMode.SELF_SERVICE
                 },
-                contactForm = ContactFormConfigApi(
-                    allowAttachments = beaconSettings.messagingSettings?.contactFormAllowAttachments
+                contactForm = if (beaconSettings.messagingSettings == null) null else ContactFormConfigApi(
+                    allowAttachments = beaconSettings.messagingSettings.contactFormAllowAttachments
                         ?: true,
-                    customFieldsEnabled = beaconSettings.messagingSettings?.contactFormCustomFieldsEnabled
+                    customFieldsEnabled = beaconSettings.messagingSettings.contactFormCustomFieldsEnabled
                         ?: true,
-                    showName = beaconSettings.messagingSettings?.contactFormShowNameField ?: true,
-                    showSubject = beaconSettings.messagingSettings?.contactFormShowSubjectField
+                    showName = beaconSettings.messagingSettings.contactFormShowNameField ?: true,
+                    showSubject = beaconSettings.messagingSettings.contactFormShowSubjectField
                         ?: true
                 )
             ),

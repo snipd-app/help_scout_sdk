@@ -1,8 +1,8 @@
 PODS:
-  - Beacon (3.0.0)
+  - Beacon (3.0.1)
   - Flutter (1.0.0)
   - help_scout_sdk (0.0.1):
-    - Beacon (= 3.0.0)
+    - Beacon (= 3.0.1)
     - Flutter
   - integration_test (0.0.1):
     - Flutter
@@ -25,11 +25,11 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/integration_test/ios"
 
 SPEC CHECKSUMS:
-  Beacon: 40264b605cb79338f8dfe28b9e07ebd172121deb
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  help_scout_sdk: e6736db732638f01a7923f0cffe841c8382ab97f
-  integration_test: 13825b8a9334a850581300559b8839134b124670
+  Beacon: e6793fcd1fefe8fe9436a0bad3e79e7678e16105
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  help_scout_sdk: 6024b3d802d714a1c21f98ff7c2105d22583690c
+  integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
 
 PODFILE CHECKSUM: 7be2f5f74864d463a8ad433546ed1de7e0f29aef
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.2
