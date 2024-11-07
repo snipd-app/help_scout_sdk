@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     beacon = _helpScoutSdkPlugin.createBeacon(
       BeaconSettings(
-        'beacon_id',
+        'add6972f-5286-444b-93b2-3c40d3de11e2',
         chatEnabled: true,
         messagingEnabled: true,
         docsEnabled: false,

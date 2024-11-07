@@ -64,5 +64,5 @@ android {
 }
 
 dependencies {
-    implementation "com.helpscout:beacon:5.0.2"
+    implementation "com.helpscout:beacon:5.1.3"
 }
